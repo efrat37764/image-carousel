@@ -1,4 +1,5 @@
 import Carousel from "./Carousel/Carousel";
+import RecipesCarousel from "./RecipesCarousel/RecipesCarousel";
 
 const images = [
   "https://placehold.co/800x450/4f46e5/ffffff?text=1",
@@ -8,7 +9,12 @@ const images = [
 ];
 
 function App() {
-  return <Carousel images={images} intervalSeconds={3} />;
+  return (
+    <>
+      <Carousel images={images} intervalSeconds={3} />
+      <RecipesCarousel />
+    </>
+  );
 }
 
 export default App;
