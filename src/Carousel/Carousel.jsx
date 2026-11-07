@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CarouselItem from "./CarouselItem";
 import "./Carousel.css";
 
@@ -8,6 +8,18 @@ function Carousel({ images, intervalSeconds = 3 }) {
   function move(step) {
     setSelected((prev) => (prev + step + images.length) % images.length);
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+    //   console.log("auto move");
+      setSelected((prev) => (prev + 1) % images.length);
+    }, intervalSeconds * 1000);
+
+    return () => {
+    //   console.log("cleanup");
+      clearTimeout(timer);
+    };
+  }, [selected, intervalSeconds, images.length]);
 
   return (
     <div className="carousel">
