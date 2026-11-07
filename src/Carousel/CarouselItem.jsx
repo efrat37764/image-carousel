@@ -1,5 +1,9 @@
-function CarouselItem() {
-  return <div className="carousel-item">CarouselItem</div>;
+function CarouselItem({ src, alt }) {
+  return (
+    <div className="carousel-item">
+      <img src={src} alt={alt} />
+    </div>
+  );
 }
 
 export default CarouselItem;
