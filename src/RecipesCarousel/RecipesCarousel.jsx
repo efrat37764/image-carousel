@@ -9,9 +9,11 @@ function RecipesCarousel() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        const controller = new AbortController();
+
         async function loadImages() {
             try {
-                const response = await fetch(url);
+                const response = await fetch(url, { signal: controller.signal });
                 if (!response.ok) {
                     throw new Error(`שגיאת שרת: ${response.status}`);
                 }
@@ -21,12 +23,14 @@ function RecipesCarousel() {
                 setLoading(false);
             }
             catch (err) {
+                if (err.name === "AbortError") return;
                 setError(err.message);
                 setLoading(false);
             }
         }
 
         loadImages();
+        return () => controller.abort();
     }, []);
 
     if (loading) {
